@@ -12,7 +12,7 @@ use App\Http\Requests\Admin\Workflow\UpdateWorkflow;
 use App\Models\Workflow;
 use App\Models\WorkflowNavigation;
 use App\Models\WorkflowState;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -23,6 +23,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use PDF;
 
 class WorkflowsController extends Controller
 {
@@ -103,6 +104,11 @@ class WorkflowsController extends Controller
     public function show(Workflow $workflow, IndexWorkflowState $request)
     {
         $this->authorize('admin.workflow.show', $workflow);
+
+        //return 'hola';
+        $codigoQr = QrCode::size(100)->generate('texto');
+        $pdf = PDF::loadView('vista_pdf', ['valor' => $codigoQr]);
+        return $pdf->download('constancias.pdf');
 
         $workflows = Workflow::all();
         $graph = WorkflowState::where('workflow_id', '=', $workflow->id)->orderBy('id')->get();
