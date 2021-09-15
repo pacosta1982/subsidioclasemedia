@@ -77,9 +77,15 @@ class ApplicationsController extends Controller
     {
         //return $application;
         $sol = Task::where('NroExp', $application->NroExp)->first();
-        //return $sol;
+        if ($sol) {
+            $historial = ApplicationStatus::where('task_id', $sol->id)->get();
+        } else {
+            $historial = [];
+        }
+
+        //return $historial;
         //->where('NroExpS', 'A');
-        return view('admin.applications.show', compact('application', 'sol'));
+        return view('admin.applications.show', compact('application', 'sol', 'historial'));
     }
 
     public function create(Application $application)

@@ -8,6 +8,7 @@ class WorkflowState extends Model
 {
     protected $fillable = [
         'name',
+        'color',
         'workflow_id',
         'isactive',
 

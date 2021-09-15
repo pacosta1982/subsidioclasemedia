@@ -27,6 +27,7 @@ class StoreWorkflowState extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'color' => ['required', 'string'],
             'workflow_id' => ['required'],
             'isactive' => ['required', 'boolean'],
 

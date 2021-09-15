@@ -19,7 +19,7 @@ class CreateApplicationStatusesTable extends Migration
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->Integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('workflow_states');
-            $table->string('user');
+            $table->string('user_id');
             //$table->string('user_model');
             $table->string('description')->nullable();
             $table->timestamps();

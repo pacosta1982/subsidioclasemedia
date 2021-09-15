@@ -27,6 +27,7 @@ class UpdateWorkflowState extends FormRequest
     {
         return [
             'name' => ['sometimes', 'string'],
+            'color' => ['sometimes', 'string'],
             'workflow_id' => ['sometimes'],
             'isactive' => ['sometimes', 'boolean'],
 

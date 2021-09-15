@@ -22,7 +22,7 @@ class ApplicationStatus extends Model
     ];
 
     protected $appends = ['resource_url'];
-    protected $with = ['status'];
+    protected $with = ['status', 'user'];
 
     /* ************************ ACCESSOR ************************* */
 
@@ -34,5 +34,10 @@ class ApplicationStatus extends Model
     public function status()
     {
         return $this->hasOne(WorkflowState::class, 'id', 'status_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(AdminUser::class);
     }
 }

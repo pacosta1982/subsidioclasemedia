@@ -34,11 +34,11 @@
                             <table class="table table-hover table-listing">
                                 <thead>
                                     <tr>
-                                        <th is='sortable' :column="'SEOBId'">{{ trans('admin.applications.columns.NroExp') }}</th>
+                                        <th class="text-center" is='sortable' :column="'SEOBId'">{{ trans('admin.applications.columns.NroExp') }}</th>
                                         <th is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.NroExpsol') }}</th>
                                         <th is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.NroExpFch') }}</th>
-                                        <td is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.Status') }}</td>
-                                        <th is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.NroExpPer') }}</th>
+                                        <td class="text-center" is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.Status') }}</td>
+                                        <th class="text-center" is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.NroExpPer') }}</th>
 
                                         <th></th>
                                     </tr>
@@ -46,11 +46,11 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item, index) in collection" :key="item.id" :class="bulkItems[item.id] ? 'bg-bulk' : ''">
-                                        <td>@{{ item.NroExp }}</td>
+                                        <td class="text-center">@{{ item.NroExp }}</td>
                                         <td>@{{ item.NroExpsol }}</td>
                                         <td>@{{ item.NroExpFch }}</td>
-                                        <td><span :class="item.task ? 'badge bg-success' : 'badge bg-warning'">@{{ item.task ? item.task.status.status.name : 'N/A' }}</span></td>
-                                        <td>@{{ item.NroExpPer }}</td>
+                                        <td class="text-center"><span class="badge" v-bind:style="item.task ?  { backgroundColor: item.task.status.status.color } : 'backgroundColor:#f5f5f4'">@{{ item.task ? item.task.status.status.name : 'N/A' }}</span></td>
+                                        <td class="text-center">@{{ item.NroExpPer }}</td>
 
                                         <td>
                                             <div class="row no-gutters">

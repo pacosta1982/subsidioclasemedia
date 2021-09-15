@@ -172,7 +172,7 @@ class WorkflowStatesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateWorkflowState $request
+     * @param UpdateWorkflowState $request//
      * @param WorkflowState $workflowState
      * @return array|RedirectResponse|Redirector
      */
@@ -180,13 +180,13 @@ class WorkflowStatesController extends Controller
     {
         // Sanitize input
         $sanitized = $request->getSanitized();
-
+        //return $sanitized;
         // Update changed values WorkflowState
         $workflowState->update($sanitized);
 
         if ($request->ajax()) {
             return [
-                'redirect' => url('admin/workflow-states'),
+                'redirect' => url('admin/workflows/' . $request['workflow_id'] . '/show'),
                 'message' => trans('brackets/admin-ui::admin.operation.succeeded'),
             ];
         }

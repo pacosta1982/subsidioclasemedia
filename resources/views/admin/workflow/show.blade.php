@@ -21,13 +21,14 @@
                 <table class="table table-hover table-listing">
                     <thead>
                         <tr>
-                            <th class="bulk-checkbox">
+                            <!--<th class="bulk-checkbox">
                                 <input class="form-check-input" id="enabled" type="checkbox" v-model="isClickedAll" v-validate="''" data-vv-name="enabled"  name="enabled_fake_element" @click="onBulkItemsClickedAllWithPagination()">
                                 <label class="form-check-label" for="enabled">
                                     #
                                 </label>
-                            </th>
-                            <th is='sortable' :column="'id'">{{ trans('admin.workflow-state.columns.id') }}</th>
+                            </th>-->
+                            <!--<th is='sortable' :column="'id'">{{ trans('admin.workflow-state.columns.id') }}</th>-->
+                            <th>Color</th>
                             <th is='sortable' :column="'name'">{{ trans('admin.workflow-state.columns.name') }}</th>
                             <th is='sortable' :column="'isactive'">{{ trans('admin.workflow-state.columns.isactive') }}</th>
                             <th></th>
@@ -44,12 +45,13 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item, index) in collection" :key="item.id" :class="bulkItems[item.id] ? 'bg-bulk' : ''">
-                            <td class="bulk-checkbox">
+                            <!--<td class="bulk-checkbox">
                                 <input class="form-check-input" :id="'enabled' + item.id" type="checkbox" v-model="bulkItems[item.id]" v-validate="''" :data-vv-name="'enabled' + item.id"  :name="'enabled' + item.id + '_fake_element'" @click="onBulkItemClicked(item.id)" :disabled="bulkCheckingAllLoader">
                                 <label class="form-check-label" :for="'enabled' + item.id">
                                 </label>
-                            </td>
-                        <td>@{{ item.id }}</td>
+                            </td>-->
+                            <!--<td>@{{ item.id }}</td>-->
+                            <td v-bind:style="{ backgroundColor: item.color }" ></td>
                             <td>@{{ item.name }}</td>
                             <td>@{{ item.isactive }}</td>
 

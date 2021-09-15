@@ -109,7 +109,7 @@ Vue.component("diagram", {
         getLabels: function(marker) {
             return {
                 key: marker.name,
-                color: marker.color
+                color: this.getColor()
             };
         },
         getTransitions: function(marker) {

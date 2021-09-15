@@ -106,9 +106,9 @@ class WorkflowsController extends Controller
         $this->authorize('admin.workflow.show', $workflow);
 
         //return 'hola';
-        $codigoQr = QrCode::size(100)->generate('texto');
+        /*$codigoQr = QrCode::size(100)->generate('texto');
         $pdf = PDF::loadView('vista_pdf', ['valor' => $codigoQr]);
-        return $pdf->download('constancias.pdf');
+        return $pdf->download('constancias.pdf');*/
 
         $workflows = Workflow::all();
         $graph = WorkflowState::where('workflow_id', '=', $workflow->id)->orderBy('id')->get();
@@ -141,10 +141,10 @@ class WorkflowsController extends Controller
                 $request,
 
                 // set columns to query
-                ['id', 'name', 'workflow_id', 'isactive'],
+                ['id', 'name', 'color', 'workflow_id', 'isactive'],
 
                 // set columns to searchIn
-                ['id', 'name', 'workflows.name'],
+                ['id', 'name', 'color', 'workflows.name'],
 
                 function ($query) use ($request, $workflow) {
                     $query->leftJoin('workflows', 'workflows.id', '=', 'workflow_states.workflow_id')

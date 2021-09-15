@@ -43,15 +43,15 @@
             <div class="form-group col-sm-4">
                 <p class="card-text"><strong>Monto:</strong> {{ $sol->amount }}</p>
             </div>
-            <div class="form-group col-sm-4">
-                <p class="card-text"><strong>Estado:</strong>  {{ $sol->status->status->name }}</p>
+            <div class="form-group col-sm-4" >
+                <p class="card-text"><strong>Estado:</strong>   <span class="badge" style="background-color: {{ $sol->status->status->color }}; font-size:1.3em; color:white"> {{ $sol->status->status->name }}</span></p>
             </div>
         </div>
-
+        <h4 class="text-center">Pasar al estado</h4>
         <div class="row">
             @foreach ($sol->status->status->navigation as $item)
                 <div class="col">
-                    <a href="/applications" type="button" class="btn btn-square btn-primary btn-lg btn-block">{{ $item->next->name }}</a>
+                    <a href="/applications" type="button" style="background-color: {{ $item->next->color }}; color:white; font-weight: bold; " class="btn btn-square  btn-lg btn-block">{{ $item->next->name }}</a>
                 </div>
             @endforeach
 
@@ -60,6 +60,42 @@
 
     </div>
   </div>
+
+   <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> {{ trans('admin.applications.history') }}
+                    </div>
+                    <div class="card-body" v-cloak>
+                        <!--<div class="card-block">-->
+                            <table class="table table-sm table-hover table-borderless">
+                                <thead>
+                                    <tr>
+                                    <th class="d-none d-sm-block">#</th>
+                                    <th>{{ trans('admin.applications.columns.status') }}</th>
+                                    <th>{{ trans('admin.applications.columns.date') }}</th>
+                                    <th>{{ trans('admin.applications.columns.user') }}</th>
+                                    <th>{{ trans('admin.applications.columns.description') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($historial as $key=>$item)
+                                    <tr>
+                                    <th class="d-none d-sm-block" scope="row">{{$key+1}}</th>
+                                    <td>{{$item->status->name}}</td>
+                                    <td>{{$item->created_at}}</td>
+                                    <td>{{$item->user->first_name}} {{$item->user->last_name}}</td>
+                                    <td>{{$item->description}}</td>
+                                    </tr>
+
+                                    @endforeach
+                                </tbody>
+                                </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 @else
 <div class="card">

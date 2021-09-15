@@ -6,7 +6,8 @@ Vue.component('workflow-state-form', {
     data: function() {
         return {
             form: {
-                name:  '' ,
+                name: '',
+                color: '',
                 workflow_id:  this.worflowid,
                 isactive:  false ,
 

@@ -7,3 +7,4 @@ import './task';
 import './workflow-navigation';
 import './applications';
 import './application-status';
+import './admin-user';
