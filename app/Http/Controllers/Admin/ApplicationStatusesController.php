@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\ApplicationStatus\IndexApplicationStatus;
 use App\Http\Requests\Admin\ApplicationStatus\StoreApplicationStatus;
 use App\Http\Requests\Admin\ApplicationStatus\UpdateApplicationStatus;
 use App\Models\ApplicationStatus;
+use App\Models\Task;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -78,12 +79,15 @@ class ApplicationStatusesController extends Controller
     {
         // Sanitize input
         $sanitized = $request->getSanitized();
-
+        //return $sanitized;
+        $task = Task::find($sanitized['task_id']);
+        $exp = $task->NroExp;
+        //return $exp;
         // Store the ApplicationStatus
         $applicationStatus = ApplicationStatus::create($sanitized);
 
         if ($request->ajax()) {
-            return ['redirect' => url('admin/application-statuses'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
+            return ['redirect' => url('admin/applications/' . $exp . '/show'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
         }
 
         return redirect('admin/application-statuses');
@@ -171,7 +175,7 @@ class ApplicationStatusesController extends Controller
      * @throws Exception
      * @return Response|bool
      */
-    public function bulkDestroy(BulkDestroyApplicationStatus $request) : Response
+    public function bulkDestroy(BulkDestroyApplicationStatus $request): Response
     {
         DB::transaction(static function () use ($request) {
             collect($request->data['ids'])

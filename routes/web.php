@@ -119,8 +119,9 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::post('/',                                            'ApplicationsController@store')->name('store');
             Route::post('/{task}',                                      'ApplicationsController@update')->name('store');
             Route::get('/{state_id}/cities',                            'ApplicationsController@cities')->name('cities');
-            /*Route::get('/visit/{project}/create',                       'ProjectController@createvisit');
-            Route::post('/bulk-destroy',                                'ProjectController@bulkDestroy')->name('bulk-destroy');
+            Route::get('/{task}/{workflowState}/transition',            'ApplicationsController@transition');
+            Route::get('/{task}/pdf',                                   'ApplicationsController@getPdf');
+            /*Route::post('/bulk-destroy',                                'ProjectController@bulkDestroy')->name('bulk-destroy');
             Route::post('/{visit}',                                     'ProjectController@update')->name('update');
             Route::delete('/{visit}',                                   'ProjectController@destroy')->name('destroy');*/
         });
@@ -150,8 +151,8 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 
 /* Auto-generated admin routes */
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
-    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
-        Route::prefix('admin-users')->name('admin-users/')->group(static function() {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function () {
+        Route::prefix('admin-users')->name('admin-users/')->group(static function () {
             Route::get('/',                                             'AdminUsersController@index')->name('index');
             Route::get('/create',                                       'AdminUsersController@create')->name('create');
             Route::post('/',                                            'AdminUsersController@store')->name('store');

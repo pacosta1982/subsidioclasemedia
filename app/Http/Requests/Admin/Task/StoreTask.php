@@ -26,7 +26,7 @@ class StoreTask extends FormRequest
     public function rules(): array
     {
         return [
-            'NroExp' => ['required'],
+            'NroExp' => ['required', 'unique:tasks'],
             'name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
             'government_id' => ['required', 'string'],

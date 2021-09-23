@@ -9,7 +9,7 @@ class ApplicationStatus extends Model
     protected $fillable = [
         'task_id',
         'status_id',
-        'user',
+        'user_id',
         'description',
 
     ];

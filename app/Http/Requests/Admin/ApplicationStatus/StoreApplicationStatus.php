@@ -28,17 +28,17 @@ class StoreApplicationStatus extends FormRequest
         return [
             'task_id' => ['required', 'integer'],
             'status_id' => ['required', 'integer'],
-            'user' => ['required', 'string'],
+            'user_id' => ['required'],
             'description' => ['nullable', 'string'],
-            
+
         ];
     }
 
     /**
-    * Modify input data
-    *
-    * @return array
-    */
+     * Modify input data
+     *
+     * @return array
+     */
     public function getSanitized(): array
     {
         $sanitized = $this->validated();

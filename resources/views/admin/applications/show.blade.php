@@ -47,17 +47,27 @@
                 <p class="card-text"><strong>Estado:</strong>   <span class="badge" style="background-color: {{ $sol->status->status->color }}; font-size:1.3em; color:white"> {{ $sol->status->status->name }}</span></p>
             </div>
         </div>
-        <h4 class="text-center">Pasar al estado</h4>
-        <div class="row">
-            @foreach ($sol->status->status->navigation as $item)
+        @if ($sol->status->status->isactive)
+           <div class="row">
+                <div class="form-group col-sm-4">
+                    <p class="card-text"><a href="{{ url('admin/applications/'.$sol->id.'/pdf') }}" class="btn btn-block btn-square btn-lg text-white bg-danger"><i class="fa fa-file-pdf-o"></i> Imprimir Certificado</a></p>
+                </div>
+            </div>
+        @endif
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body text-center">
+        <h4>OPCIONES DISPONIBLES</h4>
+         <div class="row">
+            @foreach ($navegacion as $item)
                 <div class="col">
-                    <a href="/applications" type="button" style="background-color: {{ $item->next->color }}; color:white; font-weight: bold; " class="btn btn-square  btn-lg btn-block">{{ $item->next->name }}</a>
+                    <a href="{{ url('admin/applications/'.$sol->id.'/'.$item->next->id.'/transition') }}" type="button" style="background-color: {{ $item->next->color }}; color:white; font-weight: bold; " class="btn btn-square  btn-lg btn-block">{{ $item->next->name }}</a>
                 </div>
             @endforeach
-
-
         </div>
-
     </div>
   </div>
 
@@ -88,7 +98,6 @@
                                     <td>{{$item->user->first_name}} {{$item->user->last_name}}</td>
                                     <td>{{$item->description}}</td>
                                     </tr>
-
                                     @endforeach
                                 </tbody>
                                 </table>
@@ -110,6 +119,5 @@
   </div>
 
 @endif
-
 
 @endsection

@@ -16,7 +16,9 @@ use App\Models\Task;
 use App\Models\Workflow;
 use App\Models\State;
 use App\Models\City;
+use App\Models\WorkflowState;
 use App\Models\ApplicationStatus;
+use App\Models\WorkflowNavigation;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +30,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use PDF;
 
 class ApplicationsController extends Controller
 {
@@ -73,19 +77,28 @@ class ApplicationsController extends Controller
         return view('admin.applications.index', ['data' => $data]);
     }
 
+    public function transition(Task $task, WorkflowState $workflowState)
+    {
+        //return $workflowState;
+        $user = Auth::user()->id;
+        return view('admin.applications.transition', compact('task', 'workflowState', 'user'));
+    }
+
     public function show(Application $application)
     {
         //return $application;
         $sol = Task::where('NroExp', $application->NroExp)->first();
         if ($sol) {
             $historial = ApplicationStatus::where('task_id', $sol->id)->get();
+            $navegacion = WorkflowNavigation::where('workflow_state_id', $sol->status->status->id)->get();
         } else {
             $historial = [];
+            $navegacion = [];
         }
 
-        //return $historial;
+        //return $navegacion;
         //->where('NroExpS', 'A');
-        return view('admin.applications.show', compact('application', 'sol', 'historial'));
+        return view('admin.applications.show', compact('application', 'sol', 'historial', 'navegacion'));
     }
 
     public function create(Application $application)
@@ -111,13 +124,27 @@ class ApplicationsController extends Controller
         //return json_encode($city, JSON_UNESCAPED_UNICODE);
     }
 
+    public function getPdf(Task $task)
+    {
+
+        $codigoQr = QrCode::size(100)->generate('texto');
+        $pdf = PDF::loadView(
+            'vista_pdf',
+            [
+                'valor' => $codigoQr,
+                'task' => $task
+            ]
+        );
+        return $pdf->download('constancia.pdf');
+    }
+
     public function store(StoreTask $request)
     {
         // Sanitize input
         $sanitized = $request->getSanitized();
         $sanitized['state_id'] = $request->getStateId();
         $sanitized['city_id'] = $request->getCityId();
-        $sanitized['workflow_state_id'] = $request->getWorkFlowId();
+        $sanitized['workflow_id'] = $request->getWorkFlowId();
 
 
 
@@ -128,8 +155,8 @@ class ApplicationsController extends Controller
         $status = new ApplicationStatus;
         $status->task_id = $task->id;
         $status->status_id = 1;
-        $status->user = Auth::user()->id;
-        //$status->user_model = 'App\Models\User';
+        $status->user_id = Auth::user()->id;
+        $status->description = 'Creación de Solicitud';
         $status->save();
 
         if ($request->ajax()) {

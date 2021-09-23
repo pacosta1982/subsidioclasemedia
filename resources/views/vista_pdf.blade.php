@@ -82,19 +82,19 @@
     <h4 class="center">En el marco de la Ley 5638/16</h4>
     <p>
         El Ministerio de Urbanismo, Vivienda y Habitat emite constancia de pre calificación al Aporte Estatal
-        al Sr. Pedro Acosta con C.I. Nro 1234567 en el marco de la Ley 5638/16 y su reglamentación
+        al Sr. {{ $task->name }} {{ $task->last_name }} con C.I. Nro {{ number_format((int)$task->government_id,0,".",".") }} en el marco de la Ley 5638/16 y su reglamentación
     </p>
     <p>
-        El Aporte Estatal a ser otorgado corresponde a la categoria 4, el cual asciende a la suma de Gs 40.000.000, lo equivalentes
-        al 20% de monto total de la carta oferta del inmueble individualizado como Finca Nro xxx Cta. Cte. Ctral Nro xx-xxxx-xxx
-        de la Ciudad de San Lorenzo del Departamento Central
+        El Aporte Estatal a ser otorgado corresponde a la categoria 4, el cual asciende a la suma de Gs {{ number_format((int)$task->amount,0,".",".")  }}, lo equivalentes
+        al 20% de monto total de la carta oferta del inmueble individualizado como Finca Nro {{ $task->farm }} Cta. Cte. Ctral Nro {{ $task->account }}
+        de la Ciudad de {{ $task->city->CiuNom }} del Departamento {{ ucwords(strtolower($task->state->DptoNom))  }}
     </p>
     <p>
         (La presente tendra una validez de 60 días. Queda prohibido su canjeada, adulterada o modificaciones. El desembolso está sujeto
         a la aprobación por parte de la IFI del crédito complementario)
     </p>
     <p class="right">
-        Asuncion 14 de Setiembre de 2012
+        Asuncion {{ $task->created_at }}
     </p>
 
     <img src="data:image/png;base64, {{ base64_encode($valor) }}" alt="">
