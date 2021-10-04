@@ -17,6 +17,7 @@ class Task extends Model
         'account',
         'amount',
         'workflow_id',
+        'certificate_pin'
 
     ];
 

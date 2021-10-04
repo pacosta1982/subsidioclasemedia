@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/{key}', 'App\Http\Controllers\Admin\HomeController@index');
+//Route::get('/{pin}', 'App\Http\Controllers\Admin\HomeController@index');
 
 /* Auto-generated admin routes */
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {

@@ -127,7 +127,7 @@ class ApplicationsController extends Controller
     public function getPdf(Task $task)
     {
 
-        $codigoQr = QrCode::size(100)->generate('texto');
+        $codigoQr = QrCode::size(100)->generate(env('APP_URL') . '/' . $task->certificate_pin);
         $pdf = PDF::loadView(
             'vista_pdf',
             [
@@ -145,6 +145,12 @@ class ApplicationsController extends Controller
         $sanitized['state_id'] = $request->getStateId();
         $sanitized['city_id'] = $request->getCityId();
         $sanitized['workflow_id'] = $request->getWorkFlowId();
+
+        $key = str_random(25);
+        while (Task::where('certificate_pin', $key)->exists()) {
+            $key = str_random(25);
+        }
+        $sanitized['certificate_pin'] = $key;
 
 
 
