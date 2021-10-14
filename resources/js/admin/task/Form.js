@@ -2,19 +2,23 @@ import AppForm from '../app-components/Form/AppForm';
 
 Vue.component('task-form', {
     mixins: [AppForm],
-    props: ['workflow','expediente','application','state','city'],
+    props: ['workflow','expediente','application','state','city','category'],
     data: function() {
         return {
             form: {
                 NroExp:  this.expediente,
                 name:  this.application.NroExpsol ,
                 last_name:  '' ,
-                government_id:  this.application.NroExpPer  ,
+                government_id: this.application.NroExpPer,
+                name_couple: '',
+                last_name_couple: '',
+                government_id_couple: '',
                 state: '',
                 city: '',
                 farm:  '' ,
                 account:  '' ,
-                amount:  '' ,
+                amount: '',
+                category: '',
                 workflow:  '' ,
 
             },
@@ -46,20 +50,24 @@ Vue.component('task-form', {
 
 Vue.component('task-form-edit', {
     mixins: [AppForm],
-    props: ['state','city','workflow'],
+    props: ['state','city','workflow','category'],
     data: function() {
         return {
             form: {
                 NroExp:  '',
                 name:  '',
                 last_name:  '' ,
-                government_id:  '',
+                government_id: '',
+                name_couple: '',
+                last_name_couple: '',
+                government_id_couple: '',
                 state: '',
                 city: '',
                 farm:  '' ,
                 account:  '' ,
                 amount:  '' ,
-                workflow:  '' ,
+                workflow: '',
+                category: '',
 
             },
             cities: [],

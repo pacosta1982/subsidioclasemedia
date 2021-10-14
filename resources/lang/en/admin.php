@@ -154,5 +154,22 @@ return [
         ],
     ],
 
+    'category' => [
+        'title' => 'Categories',
+
+        'actions' => [
+            'index' => 'Categories',
+            'create' => 'New Category',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'percentage' => 'Percentage',
+            
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];

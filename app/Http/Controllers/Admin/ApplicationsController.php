@@ -18,6 +18,7 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\WorkflowState;
 use App\Models\ApplicationStatus;
+use App\Models\Category;
 use App\Models\WorkflowNavigation;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use PDF;
+use Carbon\Carbon;
 
 class ApplicationsController extends Controller
 {
@@ -51,7 +53,7 @@ class ApplicationsController extends Controller
             ->modifyQuery(function ($query) use ($request) {
 
                 $query->where('NroExpS', 'A');
-                $query->where('TexCod', 187);
+                $query->where('TexCod', 188);
                 if ($request->search) {
                     //return 'funciona';
 
@@ -108,7 +110,8 @@ class ApplicationsController extends Controller
         $state = State::whereNotIn('DptoId', $nodep)->orderBy('DptoNom')->get();
         $city = City::all();
         $workflow = Workflow::all();
-        return view('admin.task.create', compact('application', 'workflow', 'application', 'state', 'city'));
+        $category = Category::all();
+        return view('admin.task.create', compact('application', 'workflow', 'application', 'state', 'city', 'category'));
     }
 
     public function cities($dptoid)
@@ -127,7 +130,9 @@ class ApplicationsController extends Controller
     public function getPdf(Task $task)
     {
 
-        $codigoQr = QrCode::size(100)->generate(env('APP_URL') . '/' . $task->certificate_pin);
+        //$date = Carbon::now();
+        //return $date->formatLocalized('%B'); //nombre del mes actual
+        $codigoQr = QrCode::size(150)->generate(env('APP_URL') . '/' . $task->certificate_pin);
         $pdf = PDF::loadView(
             'vista_pdf',
             [
@@ -145,6 +150,7 @@ class ApplicationsController extends Controller
         $sanitized['state_id'] = $request->getStateId();
         $sanitized['city_id'] = $request->getCityId();
         $sanitized['workflow_id'] = $request->getWorkFlowId();
+        $sanitized['category_id'] = $request->getGetCategoryId();
 
         $key = str_random(25);
         while (Task::where('certificate_pin', $key)->exists()) {
@@ -181,13 +187,15 @@ class ApplicationsController extends Controller
         $state = State::whereNotIn('DptoId', $nodep)->orderBy('DptoNom')->get();
         $workflow = Workflow::all();
         $city = City::all();
+        $category = Category::all();
 
         return view('admin.task.edit', [
             'application' => $application,
             'task' => $task,
             'state' => $state,
             'workflow' => $workflow,
-            'city' => $city
+            'city' => $city,
+            'category' => $category
         ]);
     }
 
@@ -198,6 +206,7 @@ class ApplicationsController extends Controller
         $sanitized['state_id'] = $request->getStateId();
         $sanitized['city_id'] = $request->getCityId();
         $sanitized['workflow_state_id'] = $request->getWorkFlowId();
+        $sanitized['category_id'] = $request->getGetCategoryId();
         //return $sanitized;
         // Update changed values Task
         $task->update($sanitized);

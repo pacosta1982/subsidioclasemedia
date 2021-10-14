@@ -82,3 +82,14 @@ $factory->define(App\Models\ApplicationStatus::class, static function (Faker\Gen
         
     ];
 });
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Category::class, static function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->firstName,
+        'percentage' => $faker->randomNumber(5),
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});

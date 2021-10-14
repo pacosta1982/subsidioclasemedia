@@ -8,6 +8,7 @@
            <li class="nav-item"><a class="nav-link" href="{{ url('admin/tasks') }}"><i class="nav-icon icon-ghost"></i> {{ trans('admin.task.title') }}</a></li>
            <li class="nav-item"><a class="nav-link" href="{{ url('admin/workflow-navigations') }}"><i class="nav-icon icon-book-open"></i> {{ trans('admin.workflow-navigation.title') }}</a></li>
            <li class="nav-item"><a class="nav-link" href="{{ url('admin/application-statuses') }}"><i class="nav-icon icon-book-open"></i> {{ trans('admin.application-status.title') }}</a></li>
+           <li class="nav-item"><a class="nav-link" href="{{ url('admin/categories') }}"><i class="nav-icon icon-book-open"></i> {{ trans('admin.category.title') }}</a></li>
            {{-- Do not delete me :) I'm used for auto-generation menu items --}}
 
             <li class="nav-title">{{ trans('brackets/admin-ui::admin.sidebar.settings') }}</li>

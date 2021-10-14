@@ -30,12 +30,16 @@ class StoreTask extends FormRequest
             'name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
             'government_id' => ['required', 'string'],
+            'name_couple' => ['sometimes'],
+            'last_name_couple' => ['sometimes'],
+            'government_id_couple' => ['sometimes'],
             'state' => ['required'],
             'city' => ['required'],
             'farm' => ['required', 'string'],
             'account' => ['required', 'string'],
             'amount' => ['required', 'integer'],
             'workflow' => ['required'],
+            'category' => ['required'],
 
         ];
     }
@@ -59,6 +63,14 @@ class StoreTask extends FormRequest
     {
         if ($this->has('workflow')) {
             return $this->get('workflow')['id'];
+        }
+        return null;
+    }
+
+    public function getGetCategoryId()
+    {
+        if ($this->has('category')) {
+            return $this->get('category')['id'];
         }
         return null;
     }

@@ -11,13 +11,17 @@ class Task extends Model
         'name',
         'last_name',
         'government_id',
+        'name_couple',
+        'last_name_couple',
+        'government_id_couple',
         'state_id',
         'city_id',
         'farm',
         'account',
         'amount',
         'workflow_id',
-        'certificate_pin'
+        'certificate_pin',
+        'category_id'
 
     ];
 
@@ -31,7 +35,7 @@ class Task extends Model
     ];
 
     protected $appends = ['resource_url'];
-    protected $with = ['state', 'city', 'status', 'workflow'];
+    protected $with = ['state', 'city', 'status', 'workflow', 'category'];
 
     /* ************************ ACCESSOR ************************* */
 
@@ -48,6 +52,11 @@ class Task extends Model
     public function city()
     {
         return $this->hasOne(City::class, 'CiuId', 'city_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function workflow()

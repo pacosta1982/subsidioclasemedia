@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lista de Postulantes</title>
+    <title>CONSTANCIA DE PRECALIFICACIÓN</title>
     <style>
-
-
-
             /** Define the header rules **/
-    header {
+    .cabeceraimagen {
         position: fixed;
         top: 0cm;
-        left: 0cm;
+        left: 2cm;
         right: 0cm;
         height: 3cm;
     }
+
 
     body {
                 margin-top: 2cm;
@@ -73,28 +71,42 @@
               $pdf->page_text(40, 760, "Fecha de Impresión: {$today}", $font, 10, array(0, 0, 0));
             }
           </script>
-    <header>
-        <img src="{{public_path('img/logofull.png')}}" class="imagencentro" width="690" >
-    </header>
+    <div class="cabeceraimagen">
+        <img src="{{public_path('img/logofull.jpg')}}"  width="500"      >
+    </div>
     <br>
     <br>
-    <h4 class="center">CONSTANCIA DE PRECALIFICACION AL SUBSIDIO</h4>
-    <h4 class="center">En el marco de la Ley 5638/16</h4>
+    <h4 class="center">CONSTANCIA DE PRECALIFICACIÓN AL APORTE ESTATAL EN EL MARCO DE LA LEY N° 5638/16</h4>
     <p>
-        El Ministerio de Urbanismo, Vivienda y Habitat emite constancia de pre calificación al Aporte Estatal
-        al Sr. {{ $task->name }} {{ $task->last_name }} con C.I. Nro {{ number_format((int)$task->government_id,0,".",".") }} en el marco de la Ley 5638/16 y su reglamentación
+        El Ministerio de Urbanismo, Vivienda y Hábitat emite la presente Constancia de Precalificación al Aporte Estatal a
+        nombre del/la señor/a {{ strtoupper($task->name.' '.$task->last_name) }} con C.I.C. N° {{ number_format((int)$task->government_id,0,".",".") }}
+        y su cónyuge/concubino {{ strtoupper($task->name_couple.' '.$task->last_name_couple) }} con C.I.C N° {{ number_format((int)$task->government_id_couple,0,".",".") }}, respectivamente,
+        en el marco de la Ley N° 5638/16, sus decretos y sus reglamentaciones.
     </p>
     <p>
-        El Aporte Estatal a ser otorgado corresponde a la categoria 4, el cual asciende a la suma de Gs {{ number_format((int)$task->amount,0,".",".")  }}, lo equivalentes
-        al 20% de monto total de la carta oferta del inmueble individualizado como Finca Nro {{ $task->farm }} Cta. Cte. Ctral Nro {{ $task->account }}
-        de la Ciudad de {{ $task->city->CiuNom }} del Departamento {{ ucwords(strtolower($task->state->DptoNom))  }}
+        El Aporte Estatal a ser eventualmente otorgado corresponde a la Categoría  {{ $task->category->name }}, el cual asciende a la suma de Gs {{ number_format((int)(($task->amount * $task->category->percentage) / 100),0,".",".")  }}, equivalente al
+        {{$task->category->percentage}} % de monto total de la Carta Oferta recibida en relación con el inmueble individualizado como Finca o Matrícula N° {{ $task->farm }} Cta. Cte. Ctral N° {{ $task->account }}
+        del distrito de {{ $task->city->CiuNom }} del Departamento de {{ ucwords(strtolower($task->state->DptoNom))  }}
     </p>
     <p>
-        (La presente tendra una validez de 60 días. Queda prohibido su canjeada, adulterada o modificaciones. El desembolso está sujeto
-        a la aprobación por parte de la IFI del crédito complementario)
+        La presente tendrá una validez de 60 días contados desde la emisión para su
+        presentación ante la IFI, en caso de que el crédito complementario sea rechazado y
+        haya transcurrido el plazo antes señalado, el presente instrumento quedará sin efecto.
     </p>
+    <p>
+        El desembolso del Aporte Estatal estará sujeto a la efectiva presentación del informe de
+        No Poseer Inmueble correspondiente a él/los postulantes y su grupo familiar mayor de edad y a la
+        aprobación del crédito complementario por parte de la IFI.
+    </p>
+    <p>
+        El canje, adulteración o modificación del presente instrumento, conllevará la nulidad de este,
+        sin otro trámite al efecto
+    </p>
+@php
+    $date = \Carbon\Carbon::parse($task->created_at);
+@endphp
     <p class="right">
-        Asuncion {{ $task->created_at }}
+        Asuncion, {{ date('d',strtotime($task->created_at)) }} de {{ $date->formatLocalized('%B') }}  de {{ date('Y',strtotime($task->created_at)) }}
     </p>
 
     <img src="data:image/png;base64, {{ base64_encode($valor) }}" alt="">

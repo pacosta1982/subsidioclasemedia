@@ -30,12 +30,16 @@ class UpdateTask extends FormRequest
             'name' => ['sometimes', 'string'],
             'last_name' => ['sometimes', 'string'],
             'government_id' => ['sometimes', 'string'],
+            'name_couple' => ['sometimes'],
+            'last_name_couple' => ['sometimes'],
+            'government_id_couple' => ['sometimes'],
             'state' => ['sometimes'],
             'city' => ['sometimes'],
             'farm' => ['sometimes', 'string'],
             'account' => ['sometimes', 'string'],
             'amount' => ['sometimes', 'integer'],
             'workflow' => ['sometimes'],
+            'category' => ['sometimes'],
 
         ];
     }
@@ -59,6 +63,14 @@ class UpdateTask extends FormRequest
     {
         if ($this->has('workflow')) {
             return $this->get('workflow')['id'];
+        }
+        return null;
+    }
+
+    public function getGetCategoryId()
+    {
+        if ($this->has('category')) {
+            return $this->get('category')['id'];
         }
         return null;
     }

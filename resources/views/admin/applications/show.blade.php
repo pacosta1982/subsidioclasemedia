@@ -19,10 +19,23 @@
                 <p class="card-text"><strong>Solicitante:</strong> {{ $sol->name }} {{ $sol->last_name }}</p>
             </div>
             <div class="form-group col-sm-4">
-                <p class="card-text"><strong>Documento:</strong> {{ $sol->government_id }}</p>
+                <p class="card-text"><strong>Documento:</strong> {{ number_format((int)$sol->government_id,0,".",".") }}</p>
             </div>
             <div class="form-group col-sm-4">
                 <p class="card-text"><strong>Expediente:</strong>  {{ $sol->NroExp }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <p class="card-text"><strong>Conyuge:</strong> {{ $sol->name_couple }} {{ $sol->last_name_couple }}</p>
+            </div>
+            <div class="form-group col-sm-4">
+                <p class="card-text"><strong>Documento:</strong> {{ number_format((int)$sol->government_id_couple,0,".",".") }}</p>
+            </div>
+            <div class="form-group col-sm-4">
+
+                <p class="card-text"><strong>Finca:</strong> {{ $sol->farm }}</p>
+
             </div>
         </div>
         <div class="row">
@@ -38,11 +51,18 @@
         </div>
         <div class="row">
             <div class="form-group col-sm-4">
-                <p class="card-text"><strong>Finca:</strong> {{ $sol->farm }}</p>
+                <p class="card-text"><strong>Categoria:</strong> {{ $sol->category->name }}</p>
             </div>
             <div class="form-group col-sm-4">
-                <p class="card-text"><strong>Monto:</strong> {{ $sol->amount }}</p>
+                <p class="card-text"><strong>Monto Total:</strong> {{ number_format((int)$sol->amount,0,".",".") }}</p>
             </div>
+            <div class="form-group col-sm-4">
+                <p class="card-text"><strong>Monto Subsidio:</strong>  {{ number_format((int)(($sol->amount * $sol->category->percentage) / 100),0,".",".")  }}</p>
+            </div>
+        </div>
+        <div class="row">
+
+
             <div class="form-group col-sm-4" >
                 <p class="card-text"><strong>Estado:</strong>   <span class="badge" style="background-color: {{ $sol->status->status->color }}; font-size:1.3em; color:white"> {{ $sol->status->status->name }}</span></p>
             </div>
