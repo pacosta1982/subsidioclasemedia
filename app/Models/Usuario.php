@@ -10,15 +10,15 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Brackets\Media\HasMedia\HasMediaThumbsTrait;*/
 
-class Application extends Model /*implements HasMedia*/
+class Usuario extends Model /*implements HasMedia*/
 {
     /*use ProcessMediaTrait;
     use AutoProcessMediaTrait;
     use HasMediaCollectionsTrait;
     use HasMediaThumbsTrait;*/
 
-    protected $table = 'SIG005';
-    protected $primaryKey = 'NroExp';
+    protected $table = 'USUARIO';
+    protected $primaryKey = 'UsuCod';
     public $keyType = 'string';
     public $timestamps = false;
     protected $connection = 'sqlsrv';
@@ -40,17 +40,17 @@ class Application extends Model /*implements HasMedia*/
 
     ];
 
-    protected $appends = ['resource_url', 'is_admin'];
-    protected $with = ['usuario', 'task'];
-    public function task()
+    //protected $appends = ['resource_url', 'is_admin'];
+    //protected $with = ['task'];
+    /*public function task()
     {
         return $this->hasOne(Task::class, 'NroExp')->latest('id');
     }
 
-    public function usuario()
+    public function user()
     {
-        return $this->belongsTo(Usuario::class, 'UsuCod', 'NUsuCod');
-    }
+        return $this->hasOne(Task::class, 'NroExp')->latest('id');
+    }*/
     /*public function advance()
     {
         return $this->hasOne(Task::class, 'NroExp')->latest('id');

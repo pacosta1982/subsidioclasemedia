@@ -9,3 +9,4 @@ import './applications';
 import './application-status';
 import './admin-user';
 import './category';
+import './role';

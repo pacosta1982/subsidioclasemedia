@@ -63,7 +63,7 @@ class ApplicationsController extends Controller
                 //return 'No Funciona';
             })
             //->paginate(15)
-            ->get(['NroExp', 'NroExpsol', 'NroExpFch', 'NroExpPer']);
+            ->get(['NroExp', 'NroExpsol', 'NroExpFch', 'NroExpPer', 'NUsuCod', 'NUsuNombre']);
 
         //  return $request;
 

@@ -39,7 +39,7 @@
                                         <th is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.NroExpFch') }}</th>
                                         <td class="text-center" is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.Status') }}</td>
                                         <th class="text-center" is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.NroExpPer') }}</th>
-
+                                        <th class="text-center" is='sortable' :column="'project_id'">{{ trans('admin.applications.columns.user') }}</th>
                                         <th></th>
                                     </tr>
 
@@ -51,7 +51,7 @@
                                         <td>@{{ item.NroExpFch }}</td>
                                         <td class="text-center"><span class="badge" v-bind:style="item.task ?  { backgroundColor: item.task.status.status.color } : 'backgroundColor:#f5f5f4'">@{{ item.task ? item.task.status.status.name : 'N/A' }}</span></td>
                                         <td class="text-center">@{{ item.NroExpPer }}</td>
-
+                                        <td class="text-center">@{{ item.NUsuNombre }}</td>
                                         <td>
                                             <div class="row no-gutters">
                                                 <div class="col-auto">
