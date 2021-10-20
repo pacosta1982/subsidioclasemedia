@@ -98,6 +98,8 @@ class ApplicationsController extends Controller
             $navegacion = [];
         }
 
+        //return $sol;
+
         //return $navegacion;
         //->where('NroExpS', 'A');
         return view('admin.applications.show', compact('application', 'sol', 'historial', 'navegacion'));

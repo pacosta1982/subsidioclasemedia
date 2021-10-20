@@ -38,7 +38,7 @@ class Task extends Model
     ];
 
     protected $appends = ['resource_url'];
-    protected $with = ['state', 'city', 'status', 'workflow', 'category'];
+    protected $with = ['state', 'city', 'status', 'workflow', 'category', 'emitido'];
 
     /* ************************ ACCESSOR ************************* */
 
@@ -70,5 +70,10 @@ class Task extends Model
     public function status()
     {
         return $this->hasOne(ApplicationStatus::class)->latest('id');
+    }
+
+    public function emitido()
+    {
+        return $this->hasOne(ApplicationStatus::class)->where('status_id', 14);
     }
 }

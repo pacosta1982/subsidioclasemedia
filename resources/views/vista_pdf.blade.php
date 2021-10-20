@@ -79,14 +79,18 @@
     <h4 class="center">CONSTANCIA DE PRECALIFICACIÓN AL APORTE ESTATAL EN EL MARCO DE LA LEY N° 5638/16</h4>
     <p>
         El Ministerio de Urbanismo, Vivienda y Hábitat emite la presente Constancia de Precalificación al Aporte Estatal a
-        nombre del/la señor/a {{ strtoupper($task->name.' '.$task->last_name) }} con C.I.C. N° {{ number_format((int)$task->government_id,0,".",".") }}
-        y su cónyuge/concubino {{ strtoupper($task->name_couple.' '.$task->last_name_couple) }} con C.I.C N° {{ number_format((int)$task->government_id_couple,0,".",".") }}, respectivamente,
-        en el marco de la Ley N° 5638/16, sus decretos y sus reglamentaciones.
+        nombre del/la señor/a <strong> {{ strtoupper($task->name.' '.$task->last_name) }} </strong> con C.I.C. N° <strong> {{ number_format((int)$task->government_id,0,".",".") }} </strong>
+
+
+        @if ($task->name_couple)
+             y su cónyuge/concubino <strong> {{ strtoupper($task->name_couple.' '.$task->last_name_couple) }} </strong>  con C.I.C N° <strong> {{ number_format((int)$task->government_id_couple,0,".",".") }} </strong>, respectivamente
+        @endif
+        , en el marco de la Ley N° 5638/16, sus decretos y sus reglamentaciones.
     </p>
     <p>
-        El Aporte Estatal a ser eventualmente otorgado corresponde a la Categoría  {{ $task->category->name }}, el cual asciende a la suma de Gs {{ number_format((int)(($task->amount * $task->category->percentage) / 100),0,".",".")  }}, equivalente al
-        {{$task->category->percentage}} % de monto total de la Carta Oferta recibida en relación con el inmueble individualizado como Finca o Matrícula N° {{ $task->farm }} Cta. Cte. Ctral N° {{ $task->account }}
-        del distrito de {{ $task->city->CiuNom }} del Departamento de {{ ucwords(strtolower($task->state->DptoNom))  }}
+        El Aporte Estatal a ser eventualmente otorgado corresponde a la Categoría <strong> {{ $task->category->name }} </strong>, el cual asciende a la suma de Gs <strong> {{ number_format((int)(($task->amount * $task->category->percentage) / 100),0,".",".")  }} </strong>, equivalente al
+       <strong> {{$task->category->percentage}} % </strong> de monto total de la Carta Oferta recibida en relación con el inmueble individualizado como Finca o Matrícula N° <strong> {{ $task->farm }} </strong> Cta. Cte. Ctral N° <strong> {{ $task->account }} </strong>
+        del distrito de <strong> {{ $task->city->CiuNom }} </strong> del Departamento de <strong>{{ ucwords(strtolower($task->state->DptoNom))  }} </strong>
     </p>
     <p>
         La presente tendrá una validez de 60 días contados desde la emisión para su
@@ -103,10 +107,10 @@
         sin otro trámite al efecto
     </p>
 @php
-    $date = \Carbon\Carbon::parse($task->created_at);
+    $date = \Carbon\Carbon::parse($task->emitido->created_at);
 @endphp
     <p class="right">
-        Asuncion, {{ date('d',strtotime($task->created_at)) }} de {{ $date->formatLocalized('%B') }}  de {{ date('Y',strtotime($task->created_at)) }}
+        Asuncion, {{ date('d',strtotime($task->emitido->created_at)) }} de {{ $date->formatLocalized('%B') }}  de {{ date('Y',strtotime($task->emitido->created_at)) }}
     </p>
 
     <img src="data:image/png;base64, {{ base64_encode($valor) }}" alt="">
