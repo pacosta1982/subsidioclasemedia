@@ -89,7 +89,12 @@
     </p>
     <p>
         El Aporte Estatal a ser eventualmente otorgado corresponde a la Categoría <strong> {{ $task->category->name }} </strong>, el cual asciende a la suma de Gs <strong> {{ number_format((int)(($task->amount * $task->category->percentage) / 100),0,".",".")  }} </strong>, equivalente al
-       <strong> {{$task->category->percentage}} % </strong> de monto total de la Carta Oferta recibida en relación con el inmueble individualizado como Finca o Matrícula N° <strong> {{ $task->farm }} </strong> Cta. Cte. Ctral N° <strong> {{ $task->account }} </strong>
+       <strong> {{$task->category->percentage}} % </strong> de monto total de la Carta Oferta recibida en relación con el inmueble individualizado como
+       @if ($task->farm)
+       Finca o Matrícula N° <strong> {{ $task->farm }} </strong>
+       @endif
+       Cta. Cte. Ctral N° <strong> {{ $task->account }} </strong>
+
         del distrito de <strong> {{ $task->city->CiuNom }} </strong> del Departamento de <strong>{{ ucwords(strtolower($task->state->DptoNom))  }} </strong>
     </p>
     <p>

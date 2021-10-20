@@ -35,7 +35,7 @@ class StoreTask extends FormRequest
             'government_id_couple' => ['sometimes'],
             'state' => ['required'],
             'city' => ['required'],
-            'farm' => ['required', 'string'],
+            'farm' => ['sometimes'],
             'account' => ['required', 'string'],
             'amount' => ['required', 'integer'],
             'workflow' => ['required'],

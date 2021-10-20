@@ -35,7 +35,7 @@ class UpdateTask extends FormRequest
             'government_id_couple' => ['sometimes'],
             'state' => ['sometimes'],
             'city' => ['sometimes'],
-            'farm' => ['sometimes', 'string'],
+            'farm' => ['sometimes'],
             'account' => ['sometimes', 'string'],
             'amount' => ['sometimes', 'integer'],
             'workflow' => ['sometimes'],
