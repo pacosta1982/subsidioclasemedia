@@ -57,7 +57,7 @@ class HomeController extends Controller
 
         //return $key;
         $task = Task::where('certificate_pin', $key)
-            ->select('name', 'last_name', 'government_id', 'farm', 'account', 'amount', 'state_id', 'city_id', 'created_at')
+            //->select('name', 'last_name', 'government_id', 'farm', 'account', 'amount', 'state_id', 'city_id', 'created_at')
             ->first();
 
         //return $task;
