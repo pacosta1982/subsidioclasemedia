@@ -22,7 +22,7 @@
                 </div>
                 <ul class="list-group list-group-flush text-center">
                     <li class="list-group-item">DOCUMENTO: {{ number_format((int)$task->government_id,0,".",".") }}</li>
-                    <li class="list-group-item">MONTO: {{ number_format((int)$task->amount,0,".",".") }}</li>
+                    <li class="list-group-item">MONTO: {{ number_format((int)(($task->amount * $task->category->percentage) / 100),0,".",".")  }}</li>
                     <li class="list-group-item">FINCA: {{ $task->farm }}</li>
                     <li class="list-group-item">CTA CTE CTRAL: {{ $task->account }}</li>
                     <li class="list-group-item">CIUDAD: {{ strtoupper($task->city->CiuNom) }}</li>

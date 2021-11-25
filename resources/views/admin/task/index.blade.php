@@ -96,7 +96,7 @@
                                         <!--<td>@{{ item.farm }}</td>
                                         <td>@{{ item.account }}</td>-->
                                         <td class="text-center">@{{ item.amount }}</td>
-                                        <td class="text-center">@{{ item.amount }}</td>
+                                        <td class="text-center">@{{ (item.amount  *  item.category.percentage) / 100 }}</td>
                                         <td>@{{ item.workflow_state_id }}</td>
 
                                         <td>
