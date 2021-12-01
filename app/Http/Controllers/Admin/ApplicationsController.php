@@ -134,6 +134,9 @@ class ApplicationsController extends Controller
 
         //$date = Carbon::now();
         //return $date->formatLocalized('%B'); //nombre del mes actual
+        setlocale(LC_ALL,'es_ES.UTF-8');
+        setlocale(LC_TIME,'es_ES');
+        \Carbon\Carbon::setLocale('es_ES');
         $codigoQr = QrCode::size(150)->generate(env('APP_URL') . '/' . $task->certificate_pin);
         $pdf = PDF::loadView(
             'vista_pdf',
