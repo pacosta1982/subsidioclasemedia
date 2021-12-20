@@ -49,7 +49,6 @@ class ApplicationsController extends Controller
         $data = AdminListing::create(Application::class)
             //->attachOrdering('id')
             ->attachPagination($request->currentPage)
-
             ->modifyQuery(function ($query) use ($request) {
 
                 $query->where('NroExpS', 'A');
@@ -57,8 +56,9 @@ class ApplicationsController extends Controller
                 if ($request->search) {
                     //return 'funciona';
 
-                    //$query->where('NroExpsol', 'like', '%' . $request->search . '%');
+                    //$query->Where('NroExpsol', 'like', '%' . $request->search . '%');
                     $query->Where('NroExpPer', $request->search);
+                    $query->OrWhere('NroExp', $request->search);
                 }
                 //return 'No Funciona';
             })
