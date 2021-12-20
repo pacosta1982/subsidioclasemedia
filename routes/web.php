@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/{key}', 'App\Http\Controllers\Admin\HomeController@index');
+//Route::get('/{id}', 'App\Http\Controllers\Admin\HomeController@index');
 //Route::get('/{pin}', 'App\Http\Controllers\Admin\HomeController@index');
 
 /* Auto-generated admin routes */
@@ -116,6 +117,10 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         Route::prefix('applications')->name('applications/')->group(static function () {
             Route::get('/',                                             'ApplicationsController@index')->name('index');
             Route::get('/{application}/show',                           'ApplicationsController@show');
+
+            //historial
+            Route::get('/history/{id}',                                 'ApplicationsController@history');
+
             Route::get('/{application}/create',                         'ApplicationsController@create')->name('create');
             Route::get('/{application}/{task}/edit',                    'ApplicationsController@edit')->name('edit');
             Route::post('/',                                            'ApplicationsController@store')->name('store');
@@ -142,6 +147,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/',                                             'ApplicationStatusesController@index')->name('index');
             Route::get('/create',                                       'ApplicationStatusesController@create')->name('create');
             Route::post('/',                                            'ApplicationStatusesController@store')->name('store');
+            Route::post('/history',                                     'ApplicationStatusesController@storeHistory')->name('storeHistory');
             Route::get('/{applicationStatus}/edit',                     'ApplicationStatusesController@edit')->name('edit');
             Route::post('/bulk-destroy',                                'ApplicationStatusesController@bulkDestroy')->name('bulk-destroy');
             Route::post('/{applicationStatus}',                         'ApplicationStatusesController@update')->name('update');

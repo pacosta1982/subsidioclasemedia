@@ -86,12 +86,21 @@ class ApplicationsController extends Controller
         return view('admin.applications.transition', compact('task', 'workflowState', 'user'));
     }
 
+    public function history(ApplicationStatus $id)
+    {
+        //return "edit history";
+        //  return $id;
+        //$user = Auth::user()->id;
+        $user = Auth::user()->id;
+        return view('admin.applications.transitionedit', compact('id','user'));
+    }
+
     public function show(Application $application)
     {
         //return $application;
         $sol = Task::where('NroExp', $application->NroExp)->first();
         if ($sol) {
-            $historial = ApplicationStatus::where('task_id', $sol->id)->get();
+            $historial = ApplicationStatus::where('task_id', $sol->id)->orderBy('created_at')->get();
             $navegacion = WorkflowNavigation::where('workflow_state_id', $sol->status->status->id)->get();
         } else {
             $historial = [];

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\ApplicationStatus\BulkDestroyApplicationStatus;
 use App\Http\Requests\Admin\ApplicationStatus\DestroyApplicationStatus;
 use App\Http\Requests\Admin\ApplicationStatus\IndexApplicationStatus;
 use App\Http\Requests\Admin\ApplicationStatus\StoreApplicationStatus;
+use App\Http\Requests\Admin\ApplicationStatus\StoreApplicationStatusHistory;
 use App\Http\Requests\Admin\ApplicationStatus\UpdateApplicationStatus;
 use App\Models\ApplicationStatus;
 use App\Models\Task;
@@ -20,6 +21,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationStatusesController extends Controller
 {
@@ -85,6 +87,31 @@ class ApplicationStatusesController extends Controller
         //return $exp;
         // Store the ApplicationStatus
         $applicationStatus = ApplicationStatus::create($sanitized);
+
+        if ($request->ajax()) {
+            return ['redirect' => url('admin/applications/' . $exp . '/show'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
+        }
+
+        return redirect('admin/application-statuses');
+    }
+
+
+    public function storeHistory(StoreApplicationStatusHistory $request)
+    {
+
+
+        //return $request->user['id'];
+        $applicationStatus = ApplicationStatus::find($request->id);
+        //return $applicationStatus;
+        $applicationStatus->description = $request->description;
+        $applicationStatus->user_id = Auth::user()->id;
+        $applicationStatus->save();
+
+        //return $applicationStatus->task_id;
+
+        $task = Task::find($applicationStatus->task_id);
+        //return $task;
+        $exp = $task->NroExp;
 
         if ($request->ajax()) {
             return ['redirect' => url('admin/applications/' . $exp . '/show'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
