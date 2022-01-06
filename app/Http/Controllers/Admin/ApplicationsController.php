@@ -54,11 +54,22 @@ class ApplicationsController extends Controller
                 $query->where('NroExpS', 'A');
                 $query->where('TexCod', 188);
                 if ($request->search) {
+
+                    $query->where(function ($query) use ($request) {
+                        $query->where('NroExpPer', $request->search)
+                              ->orWhere('NroExp', $request->search);
+                    })->where(function ($query) {
+                        $query->where('NroExpS', 'A');
+                        $query->where('TexCod', 188);
+                    });
                     //return 'funciona';
 
-                    //$query->Where('NroExpsol', 'like', '%' . $request->search . '%');
-                    $query->Where('NroExpPer', $request->search);
-                    $query->OrWhere('NroExp', $request->search);
+                //$query->Where('NroExpsol', 'like', '%' . $request->search . '%');
+                    //$query->Where('NroExpPer', $request->search)
+                    //->OrWhere('NroExp', $request->search);
+                    //
+                    //$query->OrWhere('NroExp', $request->search);
+
                 }
                 //return 'No Funciona';
             })
