@@ -107,16 +107,25 @@
                                     <th>{{ trans('admin.applications.columns.date') }}</th>
                                     <th>{{ trans('admin.applications.columns.user') }}</th>
                                     <th>{{ trans('admin.applications.columns.description') }}</th>
+                                    <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($historial as $key=>$item)
                                     <tr>
-                                    <th class="d-none d-sm-block" scope="row">{{$key+1}}</th>
+                                    <th class="d-none d-sm-block" scope="row">{{$item->id}}</th>
                                     <td>{{$item->status->name}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$item->user->first_name}} {{$item->user->last_name}}</td>
                                     <td>{{$item->description}}</td>
+                                    <td>
+                                        <div class="row no-gutters">
+                                            <div class="col-auto">
+                                                <a class="btn btn-sm btn-spinner btn-info" href="{{ url('admin/applications/history/'.$item->id) }}" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i></a>
+                                            </div>
+
+                                        </div>
+                                    </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

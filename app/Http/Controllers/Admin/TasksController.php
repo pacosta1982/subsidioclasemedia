@@ -37,10 +37,10 @@ class TasksController extends Controller
             $request,
 
             // set columns to query
-            ['id', 'NroExp', 'name', 'last_name', 'government_id', 'state_id', 'city_id', 'farm', 'account', 'amount', 'workflow_id'],
+            ['id', 'NroExp', 'name', 'last_name', 'government_id', 'state_id', 'city_id', 'farm', 'account', 'amount', 'workflow_id','category_id'],
 
             // set columns to searchIn
-            ['id', 'NroExp', 'name', 'last_name', 'government_id', 'state_id', 'city_id', 'farm', 'account']
+            ['id', 'NroExp', 'name', 'last_name', 'government_id', 'state_id', 'city_id', 'farm', 'account', 'category_id']
         );
 
         if ($request->ajax()) {

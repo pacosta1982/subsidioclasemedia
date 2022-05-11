@@ -49,16 +49,27 @@ class ApplicationsController extends Controller
         $data = AdminListing::create(Application::class)
             //->attachOrdering('id')
             ->attachPagination($request->currentPage)
-
             ->modifyQuery(function ($query) use ($request) {
 
                 $query->where('NroExpS', 'A');
                 $query->where('TexCod', 188);
                 if ($request->search) {
+
+                    $query->where(function ($query) use ($request) {
+                        $query->where('NroExpPer', $request->search)
+                              ->orWhere('NroExp', $request->search);
+                    })->where(function ($query) {
+                        $query->where('NroExpS', 'A');
+                        $query->where('TexCod', 188);
+                    });
                     //return 'funciona';
 
-                    //$query->where('NroExpsol', 'like', '%' . $request->search . '%');
-                    $query->Where('NroExpPer', $request->search);
+                //$query->Where('NroExpsol', 'like', '%' . $request->search . '%');
+                    //$query->Where('NroExpPer', $request->search)
+                    //->OrWhere('NroExp', $request->search);
+                    //
+                    //$query->OrWhere('NroExp', $request->search);
+
                 }
                 //return 'No Funciona';
             })
@@ -86,12 +97,21 @@ class ApplicationsController extends Controller
         return view('admin.applications.transition', compact('task', 'workflowState', 'user'));
     }
 
+    public function history(ApplicationStatus $id)
+    {
+        //return "edit history";
+        //  return $id;
+        //$user = Auth::user()->id;
+        $user = Auth::user()->id;
+        return view('admin.applications.transitionedit', compact('id','user'));
+    }
+
     public function show(Application $application)
     {
         //return $application;
         $sol = Task::where('NroExp', $application->NroExp)->first();
         if ($sol) {
-            $historial = ApplicationStatus::where('task_id', $sol->id)->get();
+            $historial = ApplicationStatus::where('task_id', $sol->id)->orderBy('created_at')->get();
             $navegacion = WorkflowNavigation::where('workflow_state_id', $sol->status->status->id)->get();
         } else {
             $historial = [];
@@ -134,6 +154,9 @@ class ApplicationsController extends Controller
 
         //$date = Carbon::now();
         //return $date->formatLocalized('%B'); //nombre del mes actual
+        setlocale(LC_ALL,'es_ES.UTF-8');
+        setlocale(LC_TIME,'es_ES');
+        \Carbon\Carbon::setLocale('es_ES');
         $codigoQr = QrCode::size(150)->generate(env('APP_URL') . '/' . $task->certificate_pin);
         $pdf = PDF::loadView(
             'vista_pdf',

@@ -115,7 +115,7 @@
     $date = \Carbon\Carbon::parse($task->emitido->created_at);
 @endphp
     <p class="right">
-        Asuncion, {{ date('d',strtotime($task->emitido->created_at)) }} de {{ $date->formatLocalized('%B') }}  de {{ date('Y',strtotime($task->emitido->created_at)) }}
+        Asuncion, {{ date('d',strtotime($task->emitido->created_at)) }} de {{ $date->formatLocalized('%B') }} de {{ date('Y',strtotime($task->emitido->created_at)) }}
     </p>
 
     <img src="data:image/png;base64, {{ base64_encode($valor) }}" alt="">
