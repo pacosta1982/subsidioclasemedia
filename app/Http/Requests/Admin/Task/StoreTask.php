@@ -36,7 +36,7 @@ class StoreTask extends FormRequest
             'state' => ['required'],
             'city' => ['required'],
             'farm' => ['sometimes'],
-            'account' => ['required', 'string'],
+            'account' => ['nullable', 'string'],
             'amount' => ['required', 'integer'],
             'workflow' => ['required'],
             'category' => ['required'],

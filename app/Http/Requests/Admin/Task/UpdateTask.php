@@ -36,7 +36,7 @@ class UpdateTask extends FormRequest
             'state' => ['sometimes'],
             'city' => ['sometimes'],
             'farm' => ['sometimes'],
-            'account' => ['sometimes', 'string'],
+            'account' => ['nullable', 'string'],
             'amount' => ['sometimes', 'integer'],
             'workflow' => ['sometimes'],
             'category' => ['sometimes'],
