@@ -94,8 +94,17 @@ class ApplicationsController extends Controller
     {
         //return $workflowState;
         $user = Auth::user()->id;
-        return view('admin.applications.transition', compact('task', 'workflowState', 'user'));
+
+        if ($workflowState->id == 26) {
+            $mensaje = 'Esta impresion del documento quedara registrada en el historial!!';
+        }else{
+            $mensaje = 'Este cambio de estado quedara registrado en el historial de la solicitud';
+        }
+
+        return view('admin.applications.transition', compact('task', 'workflowState', 'user','mensaje'));
+
     }
+
 
     public function history(ApplicationStatus $id)
     {

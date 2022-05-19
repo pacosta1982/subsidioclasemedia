@@ -67,7 +67,7 @@
                 <p class="card-text"><strong>Estado:</strong>   <span class="badge" style="background-color: {{ $sol->status->status->color }}; font-size:1.3em; color:white"> {{ $sol->status->status->name }}</span></p>
             </div>
         </div>
-        @if ($sol->status->status->isactive)
+        @if ($sol->status->status->id == 14 || $sol->status->status->id == 26)
            <div class="row">
                 <div class="form-group col-sm-4">
                     <p class="card-text"><a href="{{ url('admin/applications/'.$sol->id.'/pdf') }}" class="btn btn-block btn-square btn-lg text-white bg-danger"><i class="fa fa-file-pdf-o"></i> Imprimir Certificado</a></p>

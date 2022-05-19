@@ -112,10 +112,10 @@
         sin otro trámite al efecto
     </p>
 @php
-    $date = \Carbon\Carbon::parse($task->emitido->created_at);
+    $date = \Carbon\Carbon::parse($task->status->created_at);
 @endphp
     <p class="right">
-        Asuncion, {{ date('d',strtotime($task->emitido->created_at)) }} de {{ $date->formatLocalized('%B') }} de {{ date('Y',strtotime($task->emitido->created_at)) }}
+        Asuncion, {{ date('d',strtotime($task->status->created_at)) }} de {{ $date->formatLocalized('%B') }} de {{ date('Y',strtotime($task->status->created_at)) }}
     </p>
 
     <img src="data:image/png;base64, {{ base64_encode($valor) }}" alt="">
