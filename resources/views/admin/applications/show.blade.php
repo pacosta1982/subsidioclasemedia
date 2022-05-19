@@ -9,8 +9,10 @@
 <div class="card">
     <div class="card-header text-center">
          DATOS DE LA SOLICITUD
+         @if ($sol->status->status->id == 1 || $sol->status->status->id == 22 || $sol->status->status->id == 26)
          <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url('admin/applications/'.$application->NroExp.'/'.$sol->id.'/edit') }}" role="button"><i class="fa fa-edit"></i>&nbsp; Editar</a>
-    </div>
+         @endif
+             </div>
 
     <div class="card-body">
 
